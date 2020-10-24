@@ -74,13 +74,6 @@ func Migrate() error {
 	}
 
 	err = db.
-		Model(&Options{}).
-		AddForeignKey("question_id", "question(id)", "RESTRICT", "RESTRICT").Error
-	if err != nil {
-		return fmt.Errorf("failed to add foreingkey(options.question_id): %w", err)
-	}
-
-	err = db.
 		Model(&Question{}).
 		AddForeignKey("questionnaire_id", "questionnaires(id)", "RESTRICT", "RESTRICT").Error
 	if err != nil {
@@ -95,10 +88,24 @@ func Migrate() error {
 	}
 
 	err = db.
+		Model(&Targets{}).
+		AddForeignKey("questionnaire_id", "questionnaires(id)", "RESTRICT", "RESTRICT").Error
+	if err != nil {
+		return fmt.Errorf("failed to add foreingkey(targets.questionnaire_id): %w", err)
+	}
+
+	err = db.
 		Model(&Response{}).
 		AddForeignKey("response_id", "respondents(response_id)", "RESTRICT", "RESTRICT").Error
 	if err != nil {
 		return fmt.Errorf("failed to add foreingkey(response.response_id): %w", err)
+	}
+
+	err = db.
+		Model(&Options{}).
+		AddForeignKey("question_id", "question(id)", "RESTRICT", "RESTRICT").Error
+	if err != nil {
+		return fmt.Errorf("failed to add foreingkey(options.question_id): %w", err)
 	}
 
 	err = db.
@@ -113,13 +120,6 @@ func Migrate() error {
 		AddForeignKey("question_id", "question(id)", "RESTRICT", "RESTRICT").Error
 	if err != nil {
 		return fmt.Errorf("failed to add foreingkey(scale_labels.question_id): %w", err)
-	}
-
-	err = db.
-		Model(&Targets{}).
-		AddForeignKey("questionnaire_id", "questionnaires(id)", "RESTRICT", "RESTRICT").Error
-	if err != nil {
-		return fmt.Errorf("failed to add foreingkey(targets.questionnaire_id): %w", err)
 	}
 
 	err = db.
