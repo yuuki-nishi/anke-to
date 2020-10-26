@@ -184,7 +184,7 @@ func TestPostQuestionnaires(t *testing.T) {
 		rec := createRecorder(testData.request.user, methodPost, makePath("/questionnaires"), typeJSON, testData.request.createPostQuestionnairesRequestBody())
 
 		assert.Equal(t, testData.expectCode, rec.Code, testData.description)
-		if rec.Code != http.StatusOK {
+		if rec.Code != http.StatusCreated {
 			continue
 		}
 
