@@ -44,7 +44,7 @@ func PostMessage(c echo.Context, message string) error {
 		return fmt.Errorf("failed to read response: %w", err)
 	}
 
-	fmt.Printf("Message sent to %s, message: %s, response: %s\n", url, message, response)
+	c.Logger().Debug("Message sent to %s, message: %s, response: %s\n", url, message, response)
 
 	return nil
 }

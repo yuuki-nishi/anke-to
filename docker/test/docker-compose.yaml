@@ -10,8 +10,6 @@ services:
       MARIADB_HOSTNAME: mysql
       MARIADB_DATABASE: anke-to
       TZ: Asia/Tokyo
-      TRAQ_WEBHOOK_ID:
-      TRAQ_WEBHOOK_SECRET:
     volumes:
       - ../../:/go/src/github.com/traPtitech/anke-to
     working_dir: /go/src/github.com/traPtitech/anke-to

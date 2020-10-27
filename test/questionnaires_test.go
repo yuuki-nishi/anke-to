@@ -178,6 +178,32 @@ func TestPostQuestionnaires(t *testing.T) {
 			},
 			expectCode: http.StatusCreated,
 		},
+		{
+			description: "res_time_limit(after)",
+			request: postQuestionnaireRequestBody{
+				user:           userOne,
+				title:          "第1回集会らん☆ぷろ募集アンケート",
+				description:    "第1回メンバー集会でのらん☆ぷろで発表したい人を募集します らん☆ぷろで発表したい人あつまれー！",
+				administrators: []string{string(userOne)},
+				targets:        []string{},
+				resSharedTo:    string(sharePublic),
+				resTimeLimit: null.NewTime(time.Now().Round(time.Second).AddDate(0, 0, 10), true),
+			},
+			expectCode: http.StatusCreated,
+		},
+		{
+			description: "res_time_limit(before)",
+			request: postQuestionnaireRequestBody{
+				user:           userOne,
+				title:          "第1回集会らん☆ぷろ募集アンケート",
+				description:    "第1回メンバー集会でのらん☆ぷろで発表したい人を募集します らん☆ぷろで発表したい人あつまれー！",
+				administrators: []string{string(userOne)},
+				targets:        []string{},
+				resSharedTo:    string(sharePublic),
+				resTimeLimit: null.NewTime(time.Now().Round(time.Second).AddDate(0, 0, -10), true),
+			},
+			expectCode: http.StatusCreated,
+		},
 	}
 
 	for _, testData := range testList {
